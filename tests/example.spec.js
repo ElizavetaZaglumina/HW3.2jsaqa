@@ -20,7 +20,9 @@ test("Authorisation failed", async ({ page }) => {
     await page.getByPlaceholder('Пароль').fill('12345');
     await page.getByTestId('login-submit-btn').click();
     
-    await page.getByTestId('login-error-hint').click();
+    const error = await page.locator('[data-testid="login-error-hint"]');
+    await expect(error).toHaveText('Вы ввели неправильно логин или пароль.'); 
+
     await page.screenshot({ path: 'screenshotFailed.png', fullPage: true  });
 });
 
